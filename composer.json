@@ -1,0 +1,7 @@
+{
+    "name": "roryleeton/plentific-challenge",
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    }
+ }
+ 
