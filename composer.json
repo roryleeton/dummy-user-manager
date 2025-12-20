@@ -1,7 +1,19 @@
 {
-    "name": "roryleeton/plentific-challenge",
+    "name": "roryleeton/dummy-user-manager",
+    "description": "Simple framework-agnostic package that provides a service for retrieving and creating users via a remote dummyjson API",
+    "type": "library",
     "require-dev": {
         "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Roryleeton\\DummyUserManager\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Roryleeton\\DummyUserManager\\Tests\\": "tests/"
+        }
     }
  }
  
