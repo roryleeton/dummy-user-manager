@@ -7,13 +7,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Roryleeton\\DummyUserManager\\": "src/"
+            "RoryLeeton\\DummyUserManager\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Roryleeton\\DummyUserManager\\Tests\\": "tests/"
+            "RoryLeeton\\DummyUserManager\\Tests\\": "tests/"
         }
     }
- }
+}
  

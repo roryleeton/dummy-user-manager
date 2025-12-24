@@ -1,1 +1,1 @@
-# plentific-challenge
+# Dummy User Manager
