@@ -24,9 +24,9 @@ class CreateUserTest extends TestCase
 	}
 
 	/*
-	* Confirms properties are readable and are strings
+	* Confirms properties are strings
 	*/
-	public function testPropertiesAreReadonly(): void
+	public function testPropertiesAreStringss(): void
 	{
 		$createUser = new CreateUser(
 			firstname: 'Jane',
@@ -58,7 +58,7 @@ class CreateUserTest extends TestCase
 	}
 
 	/*
-	* Ensures toArray() includes all three properties
+	* Ensures toArray() includes all properties
 	*/
 	public function testToArrayContainsAllProperties(): void
 	{

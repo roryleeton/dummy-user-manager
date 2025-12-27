@@ -26,9 +26,9 @@ class UserResponseTest extends TestCase
 	}
 
 	/*
-	* Confirms properties are readable and are strings
+	* Confirms properties are strings
 	*/
-	public function testPropertiesAreReadonly(): void
+	public function testPropertiesAreStrings(): void
 	{
 		$userResponse = new UserResponse(
 			firstname: 'Jane',
@@ -65,7 +65,7 @@ class UserResponseTest extends TestCase
 	}
 
 	/*
-	* Ensures toArray() includes all three properties
+	* Ensures toArray() includes all properties
 	*/
 	public function testToArrayContainsAllProperties(): void
 	{

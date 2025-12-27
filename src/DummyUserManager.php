@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace RoryLeeton\DummyUserManager;
 
 use Data\Response\UserResponse;
+use Service\APIProcessorFactory;
 
 final class DummyUserManager 
 {
