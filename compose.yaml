@@ -1,13 +1,21 @@
-
 services:
-  server:
+  php:
+    user: "${UID:-1000}:${GID:-1000}"
     build:
       context: .
       target: development
-    ports:
-      - 8089:80
+    volumes:
+      # Mount the entire project for live development (including vendor for IDE support)
+      - ./:/app
+    working_dir: /app
+    # Equivalent to `docker run -it` (enables interactive terminal session)
+    stdin_open: true
+    tty: true
+    #
+    command: /bin/bash
     develop:
       watch:
         - action: sync
           path: ./
-          target: /var/www/html
+          target: /app
+      # Vendor is synced to host for IDE autocomplete support
