@@ -17,11 +17,13 @@ class UserResponseTest extends TestCase
 		$userResponse = new UserResponse(
 			firstname: 'John',
 			lastname: 'Doe',
+			email: 'johndoe@provider.com',
 			userID: '123'
 		);
 
 		$this->assertEquals('John', $userResponse->firstname);
 		$this->assertEquals('Doe', $userResponse->lastname);
+		$this->assertEquals('Email', $createUser->email);
 		$this->assertEquals('123', $userResponse->userID);
 	}
 
@@ -33,12 +35,14 @@ class UserResponseTest extends TestCase
 		$userResponse = new UserResponse(
 			firstname: 'Jane',
 			lastname: 'Smith',
+			email: 'janesmith@provider.com',
 			userID: '456'
 		);
 
 		// Verify properties can be read
 		$this->assertIsString($userResponse->firstname);
 		$this->assertIsString($userResponse->lastname);
+		$this->assertIsString($createUser->email);
 		$this->assertIsString($userResponse->userID);
 	}
 
@@ -50,6 +54,7 @@ class UserResponseTest extends TestCase
 		$userResponse = new UserResponse(
 			firstname: 'Alice',
 			lastname: 'Johnson',
+			email: 'alicejohnson@provider.com',
 			userID: '789'
 		);
 
@@ -58,9 +63,11 @@ class UserResponseTest extends TestCase
 		$this->assertIsArray($result);
 		$this->assertArrayHasKey('firstname', $result);
 		$this->assertArrayHasKey('lastname', $result);
+		$this->assertArrayHasKey('email', $result);
 		$this->assertArrayHasKey('userID', $result);
 		$this->assertEquals('Alice', $result['firstname']);
 		$this->assertEquals('Johnson', $result['lastname']);
+		$this->assertEquals('alicejohnson@provider.com', $result['email']);
 		$this->assertEquals('789', $result['userID']);
 	}
 
@@ -72,13 +79,14 @@ class UserResponseTest extends TestCase
 		$userResponse = new UserResponse(
 			firstname: 'Bob',
 			lastname: 'Williams',
+			email: 'bobwilliams@provider.com',
 			userID: '101'
 		);
 
 		$result = $userResponse->toArray();
 
 		$this->assertCount(3, $result);
-		$this->assertEquals(['firstname', 'lastname', 'userID'], array_keys($result));
+		$this->assertEquals(['firstname', 'lastname', 'email', 'userID'], array_keys($result));
 	}
 
 	/*
@@ -89,11 +97,13 @@ class UserResponseTest extends TestCase
 		$userResponse = new UserResponse(
 			firstname: '',
 			lastname: '',
+			email: '',
 			userID: ''
 		);
 
 		$this->assertEquals('', $userResponse->firstname);
 		$this->assertEquals('', $userResponse->lastname);
+		$this->assertEquals('', $createUser->email);
 		$this->assertEquals('', $userResponse->userID);
 	}
 
@@ -104,16 +114,19 @@ class UserResponseTest extends TestCase
 	{
 		$longFirstName = str_repeat('A', 100);
 		$longLastName = str_repeat('B', 100);
+		$longEmail = str_repeat('C', 100);
 		$longUserID = str_repeat('1', 50);
 
 		$userResponse = new UserResponse(
 			firstname: $longFirstName,
 			lastname: $longLastName,
+			email: $longEmail,
 			userID: $longUserID
 		);
 
 		$this->assertEquals($longFirstName, $userResponse->firstname);
 		$this->assertEquals($longLastName, $userResponse->lastname);
+		$this->assertEquals($longLastName, $createUser->email);
 		$this->assertEquals($longUserID, $userResponse->userID);
 	}
 }

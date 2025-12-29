@@ -13,6 +13,7 @@ final class UserResponse
 	public function __construct(
 		public readonly string $firstname,
 		public readonly string $lastname,
+		public readonly string $email,
 		public readonly string $userID
 	) {}
 
@@ -20,7 +21,7 @@ final class UserResponse
 	// Consider implementing from array method with response validation
 	// public static function fromArray(array $data): self
 	// {
-	// 	foreach (['id', 'firstname', 'lastname'] as $key) {
+	// 	foreach (['id', 'firstname', 'lastname', 'email'] as $key) {
 	// 		if (!isset($data[$key])) {
 	// 			throw new \InvalidArgumentException("Missing field: $key");
 	// 		}
@@ -29,6 +30,7 @@ final class UserResponse
 	// 	return new self(
 	// 		firstname: (string) ($data['firstname'] ?? ''),
 	// 		lastname: (string) ($data['lastname'] ?? ''),
+	//		email: (string) ($data['email'] ?? ''),
 	// 		id: (string) $data['id'],
 	// 	);
 	// }

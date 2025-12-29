@@ -20,11 +20,12 @@ class CreateUserProcessor implements APIProcessor
 		return $this->token;
 	}
 
-	public function setUserRequestData(string $firstname, string $lastname): void
+	public function setUserRequestData(string $firstname, string $lastname, string $email): void
 	{
 		$this->userRequestData = new CreateUser(
 			$firstname,
 			$lastname,
+			$email
 		);
 	}
 

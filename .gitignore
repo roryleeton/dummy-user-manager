@@ -1,4 +1,5 @@
 .dockerignore
 Dockerfile
+phpstan.neon
 README.Docker.md
 /vendor

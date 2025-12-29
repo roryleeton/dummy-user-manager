@@ -17,10 +17,12 @@ class CreateUserTest extends TestCase
 		$createUser = new CreateUser(
 			firstname: 'John',
 			lastname: 'Doe',
+			email: 'johndoe@provider.com'
 		);
 
 		$this->assertEquals('John', $createUser->firstname);
 		$this->assertEquals('Doe', $createUser->lastname);
+		$this->assertEquals('Email', $createUser->email);
 	}
 
 	/*
@@ -31,11 +33,13 @@ class CreateUserTest extends TestCase
 		$createUser = new CreateUser(
 			firstname: 'Jane',
 			lastname: 'Smith',
+			email: 'janesmith@provider.com'
 		);
 
 		// Verify properties can be read
 		$this->assertIsString($createUser->firstname);
 		$this->assertIsString($createUser->lastname);
+		$this->assertIsString($createUser->email);
 	}
 
 	/*
@@ -46,6 +50,7 @@ class CreateUserTest extends TestCase
 		$createUser = new CreateUser(
 			firstname: 'Alice',
 			lastname: 'Johnson',
+			email: 'alicejohnson@provider.com'
 		);
 
 		$result = $createUser->toArray();
@@ -53,8 +58,10 @@ class CreateUserTest extends TestCase
 		$this->assertIsArray($result);
 		$this->assertArrayHasKey('firstname', $result);
 		$this->assertArrayHasKey('lastname', $result);
+		$this->assertArrayHasKey('email', $result);
 		$this->assertEquals('Alice', $result['firstname']);
 		$this->assertEquals('Johnson', $result['lastname']);
+		$this->assertEquals('alicejohnson@provider.com', $result['email']);
 	}
 
 	/*
@@ -65,12 +72,13 @@ class CreateUserTest extends TestCase
 		$createUser = new CreateUser(
 			firstname: 'Bob',
 			lastname: 'Williams',
+			email: 'bobwilliams@provider.com'
 		);
 
 		$result = $createUser->toArray();
 
-		$this->assertCount(2, $result);
-		$this->assertEquals(['firstname', 'lastname'], array_keys($result));
+		$this->assertCount(3, $result);
+		$this->assertEquals(['firstname', 'lastname', 'email'], array_keys($result));
 	}
 
 	/*
@@ -81,10 +89,12 @@ class CreateUserTest extends TestCase
 		$createUser = new CreateUser(
 			firstname: '',
 			lastname: '',
+			email: '',
 		);
 
 		$this->assertEquals('', $createUser->firstname);
 		$this->assertEquals('', $createUser->lastname);
+		$this->assertEquals('', $createUser->email);
 	}
 
 	/*
@@ -94,13 +104,16 @@ class CreateUserTest extends TestCase
 	{
 		$longFirstName = str_repeat('A', 100);
 		$longLastName = str_repeat('B', 100);
+		$longEmail = str_repeat('C', 100);
 
 		$createUser = new CreateUser(
 			firstname: $longFirstName,
 			lastname: $longLastName,
+			email: $longEmail,
 		);
 
 		$this->assertEquals($longFirstName, $createUser->firstname);
 		$this->assertEquals($longLastName, $createUser->lastname);
+		$this->assertEquals($longLastName, $createUser->email);
 	}
 }

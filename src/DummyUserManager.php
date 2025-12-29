@@ -13,7 +13,7 @@ final class DummyUserManager
 		private string $token
 	) {}
 
-	public function createUser(string $firstname, string $lastname): UserResponse
+	public function createUser(string $firstname, string $lastname, string $email): UserResponse
 	{
 		try {
 			$processor = APIProcessorFactory::make('create-user');
