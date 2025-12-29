@@ -23,7 +23,7 @@ class UserResponseTest extends TestCase
 
 		$this->assertEquals('John', $userResponse->firstname);
 		$this->assertEquals('Doe', $userResponse->lastname);
-		$this->assertEquals('Email', $createUser->email);
+		$this->assertEquals('johndoe@provider.com', $userResponse->email);
 		$this->assertEquals('123', $userResponse->userID);
 	}
 
@@ -42,7 +42,7 @@ class UserResponseTest extends TestCase
 		// Verify properties can be read
 		$this->assertIsString($userResponse->firstname);
 		$this->assertIsString($userResponse->lastname);
-		$this->assertIsString($createUser->email);
+		$this->assertIsString($userResponse->email);
 		$this->assertIsString($userResponse->userID);
 	}
 
@@ -85,7 +85,7 @@ class UserResponseTest extends TestCase
 
 		$result = $userResponse->toArray();
 
-		$this->assertCount(3, $result);
+		$this->assertCount(4, $result);
 		$this->assertEquals(['firstname', 'lastname', 'email', 'userID'], array_keys($result));
 	}
 
@@ -103,7 +103,7 @@ class UserResponseTest extends TestCase
 
 		$this->assertEquals('', $userResponse->firstname);
 		$this->assertEquals('', $userResponse->lastname);
-		$this->assertEquals('', $createUser->email);
+		$this->assertEquals('', $userResponse->email);
 		$this->assertEquals('', $userResponse->userID);
 	}
 
@@ -126,7 +126,7 @@ class UserResponseTest extends TestCase
 
 		$this->assertEquals($longFirstName, $userResponse->firstname);
 		$this->assertEquals($longLastName, $userResponse->lastname);
-		$this->assertEquals($longLastName, $createUser->email);
+		$this->assertEquals($longEmail, $userResponse->email);
 		$this->assertEquals($longUserID, $userResponse->userID);
 	}
 }

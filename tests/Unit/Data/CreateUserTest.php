@@ -22,7 +22,7 @@ class CreateUserTest extends TestCase
 
 		$this->assertEquals('John', $createUser->firstname);
 		$this->assertEquals('Doe', $createUser->lastname);
-		$this->assertEquals('Email', $createUser->email);
+		$this->assertEquals('johndoe@provider.com', $createUser->email);
 	}
 
 	/*
@@ -114,6 +114,6 @@ class CreateUserTest extends TestCase
 
 		$this->assertEquals($longFirstName, $createUser->firstname);
 		$this->assertEquals($longLastName, $createUser->lastname);
-		$this->assertEquals($longLastName, $createUser->email);
+		$this->assertEquals($longEmail, $createUser->email);
 	}
 }
