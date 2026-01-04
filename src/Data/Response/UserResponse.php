@@ -6,32 +6,19 @@ namespace RoryLeeton\DummyUserManager\Data\Response;
 
 use RoryLeeton\DummyUserManager\Trait\ToArray;
 
-final class UserResponse
+readonly final class UserResponse
 {
 	use ToArray;
 
 	public function __construct(
-		public readonly string $firstname,
-		public readonly string $lastname,
-		public readonly string $email,
-		public readonly string $userID
+		public int $id,
+		public string $firstname,
+		public string $lastname,
+		public string $email
 	) {}
 
-
-	// Consider implementing from array method with response validation
-	// public static function fromArray(array $data): self
-	// {
-	// 	foreach (['id', 'firstname', 'lastname', 'email'] as $key) {
-	// 		if (!isset($data[$key])) {
-	// 			throw new \InvalidArgumentException("Missing field: $key");
-	// 		}
-	// 	}
-
-	// 	return new self(
-	// 		firstname: (string) ($data['firstname'] ?? ''),
-	// 		lastname: (string) ($data['lastname'] ?? ''),
-	//		email: (string) ($data['email'] ?? ''),
-	// 		id: (string) $data['id'],
-	// 	);
-	// }
+	public static function create(int $id, string $firstname, string $lastname, string $email): UserResponse 
+	{
+        return new self($id, $firstname, $lastname, $email);
+    }
 }

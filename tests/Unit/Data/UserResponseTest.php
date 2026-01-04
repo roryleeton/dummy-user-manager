@@ -15,16 +15,16 @@ class UserResponseTest extends TestCase
 	public function testConstructorInitialisesAllProperties(): void
 	{
 		$userResponse = new UserResponse(
+			id: 123,
 			firstname: 'John',
 			lastname: 'Doe',
-			email: 'johndoe@provider.com',
-			userID: '123'
+			email: 'johndoe@provider.com'
 		);
 
+		$this->assertEquals(123, $userResponse->id);
 		$this->assertEquals('John', $userResponse->firstname);
 		$this->assertEquals('Doe', $userResponse->lastname);
 		$this->assertEquals('johndoe@provider.com', $userResponse->email);
-		$this->assertEquals('123', $userResponse->userID);
 	}
 
 	/*
@@ -33,17 +33,17 @@ class UserResponseTest extends TestCase
 	public function testPropertiesAreStrings(): void
 	{
 		$userResponse = new UserResponse(
+			id: 456,
 			firstname: 'Jane',
 			lastname: 'Smith',
-			email: 'janesmith@provider.com',
-			userID: '456'
+			email: 'janesmith@provider.com'
 		);
 
 		// Verify properties can be read
+		$this->assertIsInt($userResponse->id);
 		$this->assertIsString($userResponse->firstname);
 		$this->assertIsString($userResponse->lastname);
 		$this->assertIsString($userResponse->email);
-		$this->assertIsString($userResponse->userID);
 	}
 
 	/*
@@ -52,23 +52,23 @@ class UserResponseTest extends TestCase
 	public function testToArrayReturnsCorrectArray(): void
 	{
 		$userResponse = new UserResponse(
+			id: 789,
 			firstname: 'Alice',
 			lastname: 'Johnson',
-			email: 'alicejohnson@provider.com',
-			userID: '789'
+			email: 'alicejohnson@provider.com'
 		);
 
 		$result = $userResponse->toArray();
 
 		$this->assertIsArray($result);
+		$this->assertArrayHasKey('id', $result);
 		$this->assertArrayHasKey('firstname', $result);
 		$this->assertArrayHasKey('lastname', $result);
 		$this->assertArrayHasKey('email', $result);
-		$this->assertArrayHasKey('userID', $result);
+		$this->assertEquals(789, $result['id']);
 		$this->assertEquals('Alice', $result['firstname']);
 		$this->assertEquals('Johnson', $result['lastname']);
 		$this->assertEquals('alicejohnson@provider.com', $result['email']);
-		$this->assertEquals('789', $result['userID']);
 	}
 
 	/*
@@ -77,16 +77,16 @@ class UserResponseTest extends TestCase
 	public function testToArrayContainsAllProperties(): void
 	{
 		$userResponse = new UserResponse(
+			id: 101,
 			firstname: 'Bob',
 			lastname: 'Williams',
-			email: 'bobwilliams@provider.com',
-			userID: '101'
+			email: 'bobwilliams@provider.com'
 		);
 
 		$result = $userResponse->toArray();
 
 		$this->assertCount(4, $result);
-		$this->assertEquals(['firstname', 'lastname', 'email', 'userID'], array_keys($result));
+		$this->assertEquals(['id', 'firstname', 'lastname', 'email'], array_keys($result));
 	}
 
 	/*
@@ -95,16 +95,16 @@ class UserResponseTest extends TestCase
 	public function testCanHandleEmptyStrings(): void
 	{
 		$userResponse = new UserResponse(
+			id: 0,
 			firstname: '',
 			lastname: '',
-			email: '',
-			userID: ''
+			email: ''
 		);
 
+		$this->assertEquals(0, $userResponse->id);
 		$this->assertEquals('', $userResponse->firstname);
 		$this->assertEquals('', $userResponse->lastname);
 		$this->assertEquals('', $userResponse->email);
-		$this->assertEquals('', $userResponse->userID);
 	}
 
 	/*
@@ -112,21 +112,21 @@ class UserResponseTest extends TestCase
 	*/
 	public function testCanHandleLongStrings(): void
 	{
+		$longUserID = 1;
 		$longFirstName = str_repeat('A', 100);
 		$longLastName = str_repeat('B', 100);
 		$longEmail = str_repeat('C', 100);
-		$longUserID = str_repeat('1', 50);
 
 		$userResponse = new UserResponse(
+			id: $longUserID,
 			firstname: $longFirstName,
 			lastname: $longLastName,
-			email: $longEmail,
-			userID: $longUserID
+			email: $longEmail
 		);
 
+		$this->assertEquals($longUserID, $userResponse->id);
 		$this->assertEquals($longFirstName, $userResponse->firstname);
 		$this->assertEquals($longLastName, $userResponse->lastname);
 		$this->assertEquals($longEmail, $userResponse->email);
-		$this->assertEquals($longUserID, $userResponse->userID);
 	}
 }

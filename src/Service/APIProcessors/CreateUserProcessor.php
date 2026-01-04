@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RoryLeeton\DummyUserManager\Service\APIProcessors;
 
 use RoryLeeton\DummyUserManager\Data\Request\CreateUser;
@@ -36,6 +38,6 @@ class CreateUserProcessor implements APIProcessor
 
 	public function process(): UserResponse
 	{
-
+		return new UserResponse(1, 'ph', 'ph', 'ph');
 	}
 }

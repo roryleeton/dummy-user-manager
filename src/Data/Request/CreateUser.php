@@ -6,13 +6,18 @@ namespace RoryLeeton\DummyUserManager\Data\Request;
 
 use RoryLeeton\DummyUserManager\Trait\ToArray;
 
-final class CreateUser
+readonly final class CreateUser
 {
 	use ToArray;
 
 	public function __construct(
-		public readonly string $firstname,
-		public readonly string $lastname,
-		public readonly string $email
+		public string $firstname,
+		public string $lastname,
+		public string $email
 	) {}
+
+	public static function create(string $firstname, string $lastname, string $email): CreateUser 
+	{
+        return new self($firstname, $lastname, $email);
+    }
 }
