@@ -90,6 +90,22 @@ class UserResponseTest extends TestCase
 	}
 
 	/*
+	* Tests object converts to json
+	*/
+	public function testJsonSerialization(): void
+	{
+		$userResponse = new UserResponse(
+			id: 101,
+			firstName: 'Bob',
+			lastName: 'Williams',
+			email: 'bobwilliams@provider.com'
+		);
+
+		$this->assertIsString(json_encode($userResponse));
+		$this->assertSame(json_encode($userResponse), '{"id":101,"firstName":"Bob","lastName":"Williams","email":"bobwilliams@provider.com"}')
+;	}
+
+	/*
 	* Edge case: empty string values
 	*/
 	public function testCanHandleEmptyStrings(): void
