@@ -11,6 +11,6 @@ final class NetworkException extends RuntimeException
 {
 	public function __construct(string $message = "Network error while comminicating with API", ?Throwable $previous = null)
 	{
-		return parent::__construct($message, 0, $previous);
+		parent::__construct($message, 0, $previous);
 	}
 }

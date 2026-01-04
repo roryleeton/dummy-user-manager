@@ -24,10 +24,7 @@ final class APIExceptionFactory
             $response->getStatusCode() === 404 => new NotFoundException('Not found', 404),
             $response->getStatusCode() === 422 => new ValidationException('Invalid data', 422),
 			$response->getStatusCode() >=  500 => new ServerErrorException('Server failed to process request', $response->getStatusCode()),
-            default => new APIException(
-                'API error',
-                $response->getStatusCode()
-            ),
+            default => new APIException('API error', $response->getStatusCode()),
         };
     }
 }

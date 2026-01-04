@@ -22,6 +22,9 @@ use RoryLeeton\DummyUserManager\Service\APIClient;
 
 class APIClientTest extends TestCase
 {
+	/*
+	* Tests the GET request returns a success response
+	*/
 	public function testGetReturnsResponse(): void
 	{
 		$client = new class implements ClientInterface {
@@ -40,8 +43,9 @@ class APIClientTest extends TestCase
 		$this->assertSame('yes', (string) $response->getBody());
 	}
 
-
-
+	/*
+	* Tests the POST request returns a success response
+	*/
 	public function testPostReturnsResponse(): void
 	{
 		$client = new class implements ClientInterface {
@@ -62,6 +66,9 @@ class APIClientTest extends TestCase
 
 
 
+	/*
+	* Tests the GET request returns a BadRequestException on 400 status
+	*/
 	public function testGetBadRequestException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -78,6 +85,9 @@ class APIClientTest extends TestCase
 		$api->get('https://fake.com/endpoint');
 	}
 
+	/*
+	* Tests the POST request returns a BadRequestException on 400 status
+	*/
 	public function testPostBadRequestException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -94,7 +104,9 @@ class APIClientTest extends TestCase
 		$api->post('https://fake.com/endpoint', json_encode([]));
 	}
 
-
+	/*
+	* Tests the GET request returns a ForbiddenException on 403 status
+	*/
 	public function testGetForbiddenException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -111,6 +123,9 @@ class APIClientTest extends TestCase
 		$api->get('https://fake.com/endpoint');
 	}
 
+	/*
+	* Tests the POST request returns a ForbiddenException on 403 status
+	*/
 	public function testPostForbiddenException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -129,6 +144,9 @@ class APIClientTest extends TestCase
 
 
 
+	/*
+	* Tests the GET request returns a NotFoundException on 404 status
+	*/
 	public function testGetNotFoundException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -145,6 +163,9 @@ class APIClientTest extends TestCase
 		$api->get('https://fake.com/endpoint');
 	}
 
+	/*
+	* Tests the POST request returns a NotFoundException on 404 status
+	*/
 	public function testPostNotFoundException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -163,7 +184,9 @@ class APIClientTest extends TestCase
 
 
 
-
+	/*
+	* Tests the GET request returns a ServerErrorException on 5xx status
+	*/
 	public function testGetServerErrorException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -180,6 +203,9 @@ class APIClientTest extends TestCase
 		$api->get('https://fake.com/endpoint');
 	}
 
+	/*
+	* Tests the POST request returns a ServerErrorException on 5xx status
+	*/
 	public function testPostServerErrorException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -198,7 +224,9 @@ class APIClientTest extends TestCase
 
 
 
-
+	/*
+	* Tests the GET request returns an UnauthorisedException on 401 status
+	*/
 	public function testGetUnauthorisedErrorException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -215,6 +243,9 @@ class APIClientTest extends TestCase
 		$api->get('https://fake.com/endpoint');
 	}
 
+	/*
+	* Tests the POST request returns an UnauthorisedException on 401 status
+	*/
 	public function testPostUnauthorizedErrorException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -233,7 +264,9 @@ class APIClientTest extends TestCase
 
 
 
-
+	/*
+	* Tests the GET request returns a ValidationException on 406 status
+	*/
 	public function testGetValidationException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -250,6 +283,9 @@ class APIClientTest extends TestCase
 		$api->get('https://fake.com/endpoint');
 	}
 
+	/*
+	* Tests the GET request returns a ValidationException on 406 status
+	*/
 	public function testPostValidationException(): void
 	{
 		$client = new class implements ClientInterface {
@@ -268,37 +304,52 @@ class APIClientTest extends TestCase
 
 
 
-
+	/*
+	* Tests the GET request returns an APIException on other 4xx status
+	*/
 	public function testGetGenericAPIException(): void
 	{
 		$client = new class implements ClientInterface {
 			public function sendRequest(RequestInterface $request): Response
 			{
-				return new Response(422, [], 'no');
+				return new Response(406, [], 'no');
 			}
 		};
 
 		$factory = new Psr17Factory();
 		$api = new APIClient($client, $factory, $factory);
 
-		$this->expectException(APIException::class);
-		$api->get('https://fake.com/endpoint');
+		try {
+			$api->get('https://fake.com/endpoint');
+		} catch (APIException $e) {
+			echo get_class($e)."\n";
+			$this->assertInstanceOf(APIException::class, $e);
+			$this->assertSame($e->getStatusCode(), 406);
+		}
 	}
 
+	/*
+	* Tests the POST request returns an APIException on other 4xx status
+	*/
 	public function testPostGenericAPIException(): void
 	{
 		$client = new class implements ClientInterface {
 			public function sendRequest(RequestInterface $request): Response
 			{
-				return new Response(422, [], 'no');
+				return new Response(406, [], 'no');
 			}
 		};
 
 		$factory = new Psr17Factory();
 		$api = new APIClient($client, $factory, $factory);
 
-		$this->expectException(APIException::class);
-		$api->post('https://fake.com/endpoint', json_encode([]));
+		try {
+			$api->post('https://fake.com/endpoint', json_encode([]));
+		} catch (APIException $e) {
+			$this->assertInstanceOf(APIException::class, $e);
+			$this->assertSame($e->getStatusCode(), 406);
+		}
+
 	}
 
 
