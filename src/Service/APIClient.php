@@ -7,7 +7,8 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
-use RoryLeeton\DummyUserManager\Exception\APIException;
+use RoryLeeton\DummyUserManager\Exception\APIExceptionFactory;
+use RoryLeeton\DummyUserManager\Exception\NetworkException;
 
 class APIClient
 {
@@ -24,25 +25,37 @@ class APIClient
 		try {
 			$response = $this->client->sendRequest($request);
 			$status = $response->getStatusCode();
+			if ($status >= 400) {
+				throw APIExceptionFactory::fromResponse($response);
+			}
 			return $response;
 		} catch (ClientExceptionInterface $e) {
-			throw new APIException('Request failed because...', 0, $e);
+			throw new NetworkException(
+				sprintf('Request to (GET) %s failed', (string) $request->getUri()),
+				previous: $e
+			);
 		}
 	}
 
 	public function post(string $url, string $body): ResponseInterface
 	{
 		$request = $this->requestFactory->createRequest('POST', $url);
-		
 		$stream = $this->streamFactory->createStream($body);
 		$request = $request->withHeader('Content-Type', 'application/json');
 		$request = $request->withBody($stream);
+
 		try {
 			$response = $this->client->sendRequest($request);
 			$status = $response->getStatusCode();
+			if ($status >= 400) {
+				throw APIExceptionFactory::fromResponse($response);
+			}
 			return $response;
 		} catch (ClientExceptionInterface $e) {
-			throw new APIException('Request failed because...', 0, $e);
+			throw new NetworkException(
+				sprintf('Request to (POST) %s failed', (string) $request->getUri()),
+				previous: $e
+			);
 		}
 	}
 }

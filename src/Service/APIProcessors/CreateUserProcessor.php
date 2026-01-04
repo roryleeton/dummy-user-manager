@@ -33,7 +33,6 @@ class CreateUserProcessor implements APIProcessor
 		$response = $api->post("https://dummyjson.com/users/add", json_encode($this->userRequestData));
 		$responseBody = (string) $response->getBody();
 		$userJson = json_decode($responseBody);
-		$status = $response->getStatusCode();
 
 		return UserResponse::create($userJson->id, $userJson->firstName, $userJson->lastName, $userJson->email);
 	}
