@@ -32,6 +32,7 @@ class GetUserProcessor implements APIProcessor
 		$response = $api->get("https://dummyjson.com/user/{$this->userID}");
 		// $response = $api->get("https://dummyjson.com/http/404/Hello_Peter");
 		$responseBody = (string) $response->getBody();
+		echo $responseBody."\n";
 		$userJson = json_decode($responseBody);
 		$status = $response->getStatusCode();
 
