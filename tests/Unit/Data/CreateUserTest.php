@@ -15,13 +15,13 @@ class CreateUserTest extends TestCase
 	public function testConstructorInitialisesAllProperties(): void
 	{
 		$createUser = new CreateUser(
-			firstname: 'John',
-			lastname: 'Doe',
+			firstName: 'John',
+			lastName: 'Doe',
 			email: 'johndoe@provider.com'
 		);
 
-		$this->assertEquals('John', $createUser->firstname);
-		$this->assertEquals('Doe', $createUser->lastname);
+		$this->assertEquals('John', $createUser->firstName);
+		$this->assertEquals('Doe', $createUser->lastName);
 		$this->assertEquals('johndoe@provider.com', $createUser->email);
 	}
 
@@ -31,14 +31,14 @@ class CreateUserTest extends TestCase
 	public function testPropertiesAreStringss(): void
 	{
 		$createUser = new CreateUser(
-			firstname: 'Jane',
-			lastname: 'Smith',
+			firstName: 'Jane',
+			lastName: 'Smith',
 			email: 'janesmith@provider.com'
 		);
 
 		// Verify properties can be read
-		$this->assertIsString($createUser->firstname);
-		$this->assertIsString($createUser->lastname);
+		$this->assertIsString($createUser->firstName);
+		$this->assertIsString($createUser->lastName);
 		$this->assertIsString($createUser->email);
 	}
 
@@ -48,19 +48,19 @@ class CreateUserTest extends TestCase
 	public function testToArrayReturnsCorrectArray(): void
 	{
 		$createUser = new CreateUser(
-			firstname: 'Alice',
-			lastname: 'Johnson',
+			firstName: 'Alice',
+			lastName: 'Johnson',
 			email: 'alicejohnson@provider.com'
 		);
 
 		$result = $createUser->toArray();
 
 		$this->assertIsArray($result);
-		$this->assertArrayHasKey('firstname', $result);
-		$this->assertArrayHasKey('lastname', $result);
+		$this->assertArrayHasKey('firstName', $result);
+		$this->assertArrayHasKey('lastName', $result);
 		$this->assertArrayHasKey('email', $result);
-		$this->assertEquals('Alice', $result['firstname']);
-		$this->assertEquals('Johnson', $result['lastname']);
+		$this->assertEquals('Alice', $result['firstName']);
+		$this->assertEquals('Johnson', $result['lastName']);
 		$this->assertEquals('alicejohnson@provider.com', $result['email']);
 	}
 
@@ -70,15 +70,15 @@ class CreateUserTest extends TestCase
 	public function testToArrayContainsAllProperties(): void
 	{
 		$createUser = new CreateUser(
-			firstname: 'Bob',
-			lastname: 'Williams',
+			firstName: 'Bob',
+			lastName: 'Williams',
 			email: 'bobwilliams@provider.com'
 		);
 
 		$result = $createUser->toArray();
 
 		$this->assertCount(3, $result);
-		$this->assertEquals(['firstname', 'lastname', 'email'], array_keys($result));
+		$this->assertEquals(['firstName', 'lastName', 'email'], array_keys($result));
 	}
 
 	/*
@@ -87,13 +87,13 @@ class CreateUserTest extends TestCase
 	public function testCanHandleEmptyStrings(): void
 	{
 		$createUser = new CreateUser(
-			firstname: '',
-			lastname: '',
+			firstName: '',
+			lastName: '',
 			email: '',
 		);
 
-		$this->assertEquals('', $createUser->firstname);
-		$this->assertEquals('', $createUser->lastname);
+		$this->assertEquals('', $createUser->firstName);
+		$this->assertEquals('', $createUser->lastName);
 		$this->assertEquals('', $createUser->email);
 	}
 
@@ -102,18 +102,18 @@ class CreateUserTest extends TestCase
 	*/
 	public function testCanHandleLongStrings(): void
 	{
-		$longFirstName = str_repeat('A', 100);
-		$longLastName = str_repeat('B', 100);
+		$longfirstName = str_repeat('A', 100);
+		$longlastName = str_repeat('B', 100);
 		$longEmail = str_repeat('C', 100);
 
 		$createUser = new CreateUser(
-			firstname: $longFirstName,
-			lastname: $longLastName,
+			firstName: $longfirstName,
+			lastName: $longlastName,
 			email: $longEmail,
 		);
 
-		$this->assertEquals($longFirstName, $createUser->firstname);
-		$this->assertEquals($longLastName, $createUser->lastname);
+		$this->assertEquals($longfirstName, $createUser->firstName);
+		$this->assertEquals($longlastName, $createUser->lastName);
 		$this->assertEquals($longEmail, $createUser->email);
 	}
 }

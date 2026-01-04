@@ -11,18 +11,7 @@ use Symfony\Component\HttpClient\Psr18Client;
 
 class GetUserProcessor implements APIProcessor
 {
-	private string $token;
 	private string $userID;
-
-	public function setAuthToken(string $token): void
-	{
-		$this->token = $token;
-	}
-
-	public function getAuthToken(): string
-	{
-		return $this->token;
-	}
 
 	public function setUserID(string $userID): void
 	{
@@ -38,12 +27,14 @@ class GetUserProcessor implements APIProcessor
 	{
 		$client = new Psr18Client();
 		$factory = new Psr17Factory();
-		$api = new APIClient($client, $factory);
+		$api = new APIClient($client, $factory, $factory);
 
 		$response = $api->get("https://dummyjson.com/user/{$this->userID}");
+		// $response = $api->get("https://dummyjson.com/http/404/Hello_Peter");
 		$responseBody = (string) $response->getBody();
 		$userJson = json_decode($responseBody);
+		$status = $response->getStatusCode();
 
-		return new UserResponse($userJson->id, $userJson->firstName, $userJson->lastName, $userJson->email);
+		return UserResponse::create($userJson->id, $userJson->firstName, $userJson->lastName, $userJson->email);
 	}
 }

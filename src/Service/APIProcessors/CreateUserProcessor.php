@@ -4,31 +4,19 @@ declare(strict_types=1);
 
 namespace RoryLeeton\DummyUserManager\Service\APIProcessors;
 
+use Nyholm\Psr7\Factory\Psr17Factory;
+use RoryLeeton\DummyUserManager\Service\APIClient;
 use RoryLeeton\DummyUserManager\Data\Request\CreateUser;
 use RoryLeeton\DummyUserManager\Data\Response\UserResponse;
+use Symfony\Component\HttpClient\Psr18Client;
 
 class CreateUserProcessor implements APIProcessor
 {
-	private string $token;
 	private CreateUser $userRequestData;
 
-	public function setAuthToken(string $token): void
+	public function setUserRequestData(string $firstName, string $lastName, string $email): void
 	{
-		$this->token = $token;
-	}
-
-	public function getAuthToken(): string
-	{
-		return $this->token;
-	}
-
-	public function setUserRequestData(string $firstname, string $lastname, string $email): void
-	{
-		$this->userRequestData = new CreateUser(
-			$firstname,
-			$lastname,
-			$email
-		);
+		$this->userRequestData = CreateUser::create($firstName, $lastName, $email);
 	}
 
 	public function getUserRequestData(): CreateUser
@@ -38,6 +26,15 @@ class CreateUserProcessor implements APIProcessor
 
 	public function process(): UserResponse
 	{
-		return new UserResponse(1, 'ph', 'ph', 'ph');
+		$client = new Psr18Client();
+		$factory = new Psr17Factory();
+		$api = new APIClient($client, $factory, $factory);
+
+		$response = $api->post("https://dummyjson.com/users/add", json_encode($this->userRequestData));
+		$responseBody = (string) $response->getBody();
+		$userJson = json_decode($responseBody);
+		$status = $response->getStatusCode();
+
+		return UserResponse::create($userJson->id, $userJson->firstName, $userJson->lastName, $userJson->email);
 	}
 }

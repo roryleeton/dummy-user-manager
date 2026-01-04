@@ -16,14 +16,14 @@ class UserResponseTest extends TestCase
 	{
 		$userResponse = new UserResponse(
 			id: 123,
-			firstname: 'John',
-			lastname: 'Doe',
+			firstName: 'John',
+			lastName: 'Doe',
 			email: 'johndoe@provider.com'
 		);
 
 		$this->assertEquals(123, $userResponse->id);
-		$this->assertEquals('John', $userResponse->firstname);
-		$this->assertEquals('Doe', $userResponse->lastname);
+		$this->assertEquals('John', $userResponse->firstName);
+		$this->assertEquals('Doe', $userResponse->lastName);
 		$this->assertEquals('johndoe@provider.com', $userResponse->email);
 	}
 
@@ -34,15 +34,15 @@ class UserResponseTest extends TestCase
 	{
 		$userResponse = new UserResponse(
 			id: 456,
-			firstname: 'Jane',
-			lastname: 'Smith',
+			firstName: 'Jane',
+			lastName: 'Smith',
 			email: 'janesmith@provider.com'
 		);
 
 		// Verify properties can be read
 		$this->assertIsInt($userResponse->id);
-		$this->assertIsString($userResponse->firstname);
-		$this->assertIsString($userResponse->lastname);
+		$this->assertIsString($userResponse->firstName);
+		$this->assertIsString($userResponse->lastName);
 		$this->assertIsString($userResponse->email);
 	}
 
@@ -53,8 +53,8 @@ class UserResponseTest extends TestCase
 	{
 		$userResponse = new UserResponse(
 			id: 789,
-			firstname: 'Alice',
-			lastname: 'Johnson',
+			firstName: 'Alice',
+			lastName: 'Johnson',
 			email: 'alicejohnson@provider.com'
 		);
 
@@ -62,12 +62,12 @@ class UserResponseTest extends TestCase
 
 		$this->assertIsArray($result);
 		$this->assertArrayHasKey('id', $result);
-		$this->assertArrayHasKey('firstname', $result);
-		$this->assertArrayHasKey('lastname', $result);
+		$this->assertArrayHasKey('firstName', $result);
+		$this->assertArrayHasKey('lastName', $result);
 		$this->assertArrayHasKey('email', $result);
 		$this->assertEquals(789, $result['id']);
-		$this->assertEquals('Alice', $result['firstname']);
-		$this->assertEquals('Johnson', $result['lastname']);
+		$this->assertEquals('Alice', $result['firstName']);
+		$this->assertEquals('Johnson', $result['lastName']);
 		$this->assertEquals('alicejohnson@provider.com', $result['email']);
 	}
 
@@ -78,15 +78,15 @@ class UserResponseTest extends TestCase
 	{
 		$userResponse = new UserResponse(
 			id: 101,
-			firstname: 'Bob',
-			lastname: 'Williams',
+			firstName: 'Bob',
+			lastName: 'Williams',
 			email: 'bobwilliams@provider.com'
 		);
 
 		$result = $userResponse->toArray();
 
 		$this->assertCount(4, $result);
-		$this->assertEquals(['id', 'firstname', 'lastname', 'email'], array_keys($result));
+		$this->assertEquals(['id', 'firstName', 'lastName', 'email'], array_keys($result));
 	}
 
 	/*
@@ -96,14 +96,14 @@ class UserResponseTest extends TestCase
 	{
 		$userResponse = new UserResponse(
 			id: 0,
-			firstname: '',
-			lastname: '',
+			firstName: '',
+			lastName: '',
 			email: ''
 		);
 
 		$this->assertEquals(0, $userResponse->id);
-		$this->assertEquals('', $userResponse->firstname);
-		$this->assertEquals('', $userResponse->lastname);
+		$this->assertEquals('', $userResponse->firstName);
+		$this->assertEquals('', $userResponse->lastName);
 		$this->assertEquals('', $userResponse->email);
 	}
 
@@ -113,20 +113,20 @@ class UserResponseTest extends TestCase
 	public function testCanHandleLongStrings(): void
 	{
 		$longUserID = 1;
-		$longFirstName = str_repeat('A', 100);
-		$longLastName = str_repeat('B', 100);
+		$longfirstName = str_repeat('A', 100);
+		$longlastName = str_repeat('B', 100);
 		$longEmail = str_repeat('C', 100);
 
 		$userResponse = new UserResponse(
 			id: $longUserID,
-			firstname: $longFirstName,
-			lastname: $longLastName,
+			firstName: $longfirstName,
+			lastName: $longlastName,
 			email: $longEmail
 		);
 
 		$this->assertEquals($longUserID, $userResponse->id);
-		$this->assertEquals($longFirstName, $userResponse->firstname);
-		$this->assertEquals($longLastName, $userResponse->lastname);
+		$this->assertEquals($longfirstName, $userResponse->firstName);
+		$this->assertEquals($longlastName, $userResponse->lastName);
 		$this->assertEquals($longEmail, $userResponse->email);
 	}
 }

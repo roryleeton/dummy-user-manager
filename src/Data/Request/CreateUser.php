@@ -6,18 +6,23 @@ namespace RoryLeeton\DummyUserManager\Data\Request;
 
 use RoryLeeton\DummyUserManager\Trait\ToArray;
 
-readonly final class CreateUser
+readonly final class CreateUser implements \JsonSerializable
 {
 	use ToArray;
 
 	public function __construct(
-		public string $firstname,
-		public string $lastname,
+		public string $firstName,
+		public string $lastName,
 		public string $email
 	) {}
 
-	public static function create(string $firstname, string $lastname, string $email): CreateUser 
+	public static function create(string $firstName, string $lastName, string $email): CreateUser 
 	{
-        return new self($firstname, $lastname, $email);
+        return new self($firstName, $lastName, $email);
     }
+
+	public function jsonSerialize(): array
+	{
+		return $this->toArray();
+	}
 }
