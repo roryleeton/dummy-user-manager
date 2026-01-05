@@ -223,26 +223,6 @@ The package follows a clean architecture pattern:
 - **Exception Handling**: Comprehensive exception hierarchy for different error scenarios
 - **HTTP Client**: Uses PSR-18 compatible HTTP client (Symfony HTTP Client by default)
 
-## Testing
-
-The package includes comprehensive unit and integration tests using PHPUnit.
-
-```bash
-# Run all tests
-composer test
-
-# Run with coverage
-composer test -- --coverage
-```
-
-## Static Analysis
-
-The package uses PHPStan for static analysis:
-
-```bash
-# Run PHPStan
-composer phpstan
-```
 
 ## Dependencies
 
