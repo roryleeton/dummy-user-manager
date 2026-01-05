@@ -55,7 +55,7 @@ class GetUserProcessor implements APIProcessor
 		$factory = new Psr17Factory();
 		$api = new APIClient($client, $factory, $factory);
 
-		$response = $api->get("https://dummyjson.com/user/{(string) $this->userID}");
+		$response = $api->get("https://dummyjson.com/user/{$this->userID}");
 		$responseBody = (string) $response->getBody();
 		$userJson = json_decode($responseBody);
 		$status = $response->getStatusCode();
